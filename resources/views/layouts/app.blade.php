@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <!-- CoreUI CSS -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
           integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
           crossorigin="anonymous"/>
@@ -15,10 +17,12 @@
     @yield('third_party_stylesheets')
 
     @stack('page_css')
+ 
 </head>
 
 <body class="c-app">
 @include('layouts.sidebar')
+
 
 <div class="c-wrapper">
     <header class="c-header c-header-light c-header-fixed">
@@ -28,7 +32,8 @@
     <div class="c-body">
         <main class="c-main">
             @yield('content')
-        </main>
+            
+        </main> 
     </div>
 
     <footer class="c-footer">
@@ -36,8 +41,11 @@
         <div class="mfs-auto">Powered by&nbsp;<a href="https://coreui.io/">CoreUI</a></div>
     </footer>
 </div>
-
-<script src="{{ mix('js/app.js') }}" defer></script>
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.js"></script>
 
 @yield('third_party_scripts')

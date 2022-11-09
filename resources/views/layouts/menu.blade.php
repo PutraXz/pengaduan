@@ -3,6 +3,9 @@
     <a class="c-sidebar-nav-link c-active" href="{{ route('admin.home') }}">
         <i class="c-sidebar-nav-icon cil-home"></i>Admin
     </a>
+    <a class="c-sidebar-nav-link c-active" href="{{ url('admin/user') }}">
+        <i class="c-sidebar-nav-icon fas fa-users"></i>User
+    </a>
     @endif
     @if (auth()->user()->level=="masyarakat")
     <a class="c-sidebar-nav-link c-active" href="{{ route('masyarakat.home') }}">
