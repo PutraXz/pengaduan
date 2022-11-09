@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,13 +16,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('welcome');
+
+Auth::routes();
+
+// user route
+Route::middleware(['auth', 'check-level:admin'])->group(function(){
+    Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');
 });
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/home', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('test.logout');
+// masyarakat role
+Route::middleware(['auth', 'check-level:masyarakat'])->group(function(){
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'masyarakatHome'])->name('masyarakat.home');
+});
+Route::middleware(['auth', 'check-level:pimpinan'])->group(function(){
+    Route::get('/pimpinan/home', [App\Http\Controllers\HomeController::class, 'pimpinanHome'])->name('pimpinan.home');
+});
 

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Ui\Presets\React;
 
 class LoginController extends Controller
 { 
@@ -33,9 +34,10 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->redirectTo = route('home');
+         
+        
         $this->middleware('guest')->except('logout');
     }
     public function logout(Request $request)
@@ -46,7 +48,25 @@ class LoginController extends Controller
  
         $request->session()->regenerate();
  
-        return redirect('home')
-            ->withSuccess('Terimakasih, selamat datang kembali!');
+        return redirect('home');
+            
     }
+    // public function login(Request $request){
+    //     $input = $request->all();
+    //     $this->validate($request,[
+    //         'email'=>'required|email',
+    //         'paswword'=>'required'
+    //     ]);
+    //     if(auth()->attempt(['email'=>$input['email'], 'password'=>$input['password']])){
+    //         if(auth()->user()->level == 'admin'){
+    //             return redirect('/admin/home');
+    //         }elseif(auth()->user()->level == 'pimpinan'){
+    //             return redirect('/pimpinan/home');
+    //         }else{
+    //             return redirect('/home');
+    //         }
+    //     }else{
+    //         return redirect()->route("login")->with("error", 'incorrect email or password');
+    //     }
+    // }
 }

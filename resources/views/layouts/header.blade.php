@@ -16,7 +16,7 @@
         <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button"
            aria-haspopup="true" aria-expanded="false">
             <div class="c-avatar">
-                <img class="c-avatar-img" src="https://infyom.com/images/logo/blue_logo_150x150.png" alt="">
+                <p>{{auth()->user()->name}}</p>
             </div>
         </a>
         <div class="dropdown-menu dropdown-menu-right pt-0">
@@ -27,7 +27,7 @@
             <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="c-icon mfe-2 cil-account-logout"></i>Logout
             </a>
-            <form id="logout-form" action="{{ route('test.logout') }}" method="POST" class="d-none">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
         </div>

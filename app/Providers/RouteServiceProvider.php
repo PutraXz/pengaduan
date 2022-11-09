@@ -18,7 +18,8 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/home';
-
+    public const PIMPINAN = '/pimpinan/home';
+    public const ADMIN = '/admin/home';
     /**
      * The controller namespace for the application.
      *
