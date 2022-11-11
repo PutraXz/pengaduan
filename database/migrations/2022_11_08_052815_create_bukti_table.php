@@ -18,7 +18,7 @@ class CreateBuktiTable extends Migration
             $table->string('bukti');
             $table->timestamps();
             $table->unsignedBigInteger('kode_pengaduan');
-            $table->foreign('kode_pengaduan')->references('kode')->on('pengaduan');
+            $table->foreign('kode_pengaduan')->references('kode')->on('pengaduan')->onDelete('cascade');
         });
     }
 

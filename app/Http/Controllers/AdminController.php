@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Pengaduan;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -40,5 +41,26 @@ class AdminController extends Controller
         $user = User::find($id);
         $user->delete();
         return redirect('/admin/user');
+    }
+    public function pengaduan(){
+        $users = User::with(['pengaduan'])->whereNotIn('level', ['admin', 'pimpinan'])->get();
+        
+        return view('admin.pengaduan', compact('users'));
+    }
+    public function status(Request $request, $kode){
+        switch ($request->input('action')){
+            case 'konfirmasi':
+                $pengaduan = Pengaduan::find($kode);
+                $pengaduan->status = 'Di Konfirmasi';
+                $pengaduan->save();
+                return redirect('admin/pengaduan');
+                break;
+            case 'ditolak':
+                $pengaduan = Pengaduan::find($kode);
+                $pengaduan->status = 'Di Tolak';
+                $pengaduan->save();
+                return redirect('admin/pengaduan');
+                break;
+        }
     }
 }

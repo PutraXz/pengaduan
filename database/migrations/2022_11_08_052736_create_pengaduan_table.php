@@ -14,10 +14,13 @@ class CreatePengaduanTable extends Migration
     public function up()
     {
         Schema::create('pengaduan', function (Blueprint $table) {
-            $table->id('kode');
+            $table->unsignedBigInteger('kode', false)->primary(); 
             $table->text('isi');
+            $table->string('status')->default('Belum Terkonfirmasi');;
             $table->date('tanggal');
             $table->string('judul');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

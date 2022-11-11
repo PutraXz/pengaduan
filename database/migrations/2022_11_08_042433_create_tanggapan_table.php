@@ -18,8 +18,8 @@ class CreateTanggapanTable extends Migration
             $table->primary('kode');
             $table->text('tanggapan');
             $table->date('tanggal');
-            $table->integer('kode_pengaduan');
-            // $table->foreign('kode_pengaduan')->references('kode')->on('pengaduan');
+            $table->unsignedBigInteger('kode_pengaduan');
+            // $table->foreign('kode_pengaduan')->references('kode')->on('pengaduan')->onDelete('cascade');
             $table->timestamps();
         });
     }
