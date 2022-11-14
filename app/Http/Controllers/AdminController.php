@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Bukti;
 use App\Models\Pengaduan;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -44,8 +45,14 @@ class AdminController extends Controller
     }
     public function pengaduan(){
         $users = User::with(['pengaduan'])->whereNotIn('level', ['admin', 'pimpinan'])->get();
-        
-        return view('admin.pengaduan', compact('users'));
+        foreach ($users as $item) {
+            foreach ($item->pengaduan as $pengaduan) {
+                $pengaduans = $pengaduan->get();
+                // dd($pengaduans);
+                $test = Bukti::with(['pengaduan'])->where('kode_pengaduan', $pengaduan->kode)->get();
+            }
+        }
+        return view('admin.pengaduan', compact('users','pengaduans','test'));
     }
     public function status(Request $request, $kode){
         switch ($request->input('action')){
