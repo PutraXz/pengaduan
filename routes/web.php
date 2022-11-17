@@ -21,7 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::group(['middleware' => 'auth'], function (){
     Route::group(['middleware' => 'check-level:admin'], function (){
-        Route::get('/admin', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.index');
+        Route::get('/admin', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');
         Route::get('/admin/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.user');
         Route::get('/admin/add/user', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('tambah.user');
         Route::post('/admin/add/user', [App\Http\Controllers\Admin\UserController::class, 'add'])->name('send.user');
