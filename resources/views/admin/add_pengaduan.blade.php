@@ -2,17 +2,23 @@
 @section('content')
 
    {{-- datatable --}}
-    <form action="{{route('send.pengaduan')}}" method="post" enctype="multipart/form-data">
+    <form action="{{route('admin.send_pengaduan')}}" method="post" enctype="multipart/form-data">
     @csrf
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+    <div class="input-group mb-3">
+        <div class="col-2">
+            <label for="user" class="col-form-label">Nama Pengaduan</label>
+        </div>
+        <div class="col-3">
+            <select class="form-control select2" style="width: 100%;" name="user">
+                <option value="" selected></option>
+          
+                @foreach($users as $user)
+                     <option value="{{$user->id}}">{{$user->name}}</option>
+                @endforeach
+          
+              </select>
+        </div>
     </div>
-    @endif
     <div class="input-group mb-3">
         <div class="col-2">
             <label for="isi" class="col-form-label">Isi Pengaduan</label>

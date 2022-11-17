@@ -1,32 +1,38 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Masyarakat;
+
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Pengaduan;
+use App\Models\Pengaduan; 
 use Carbon\Carbon;
 use App\Models\Bukti;
+use Illuminate\Support\Facades\Validator;
+
+
 class PengaduanController extends Controller
 {
     public function index(){
-
         $users = User::with(['pengaduan'])->find(Auth::id());
         return view('masyarakat.pengaduan', compact('users'));
     }
-    public function createPengaduan(){ 
+    public function create(){ 
         return view('masyarakat.add_pengaduan');
     }
-    public function addPengaduan(Request $request){
-        $this->validate($request, [
-			'file' => 'file|mimes:ppt,pptx,doc,docx,pdf,xls,xlsx,jpg,jpeg,png|max:20480',
-		]);
-        if ($request->hasFile('file')){
-            $file = $request->file('file');
-            
+    public function add(Request $request){
+        $validator = Validator::make($request->all(), [
+            'file' => 'file|mimes:ppt,pptx,doc,docx,pdf,xls,xlsx|max:20480',
+        ]);
+        if ($validator->fails()) {
+            return redirect('home/add/pengaduan')
+            ->withErrors($validator)
+            ->withInput();
+        }else{
+                $file = $request->file('file');
                 $filename = round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
-                $tujuan_bukti = 'bukti';
-                $sending = $file->move(public_path('bukti/'), $filename);
+                $file->move(public_path('bukti/'), $filename);
                 $randomNumber = random_int(100000, 999999);
                 // add pengaduan
                 $pengaduan = new Pengaduan();
@@ -42,21 +48,15 @@ class PengaduanController extends Controller
                 $bukti->bukti = $filename;
                 $bukti->kode_pengaduan = $pengaduan->kode;
                 $bukti->save();
-                return redirect('home/pengaduan');
-            } else{
-                
-                $message = "Cek file ";
-                echo 'gagal';
-                echo "<script type='text/javascript'>alert('$message');</script>";
-            
+                return redirect('admin/pengaduan');
         }
 
     }
-    public function editPengaduan($kode){
+    public function edit($kode){
         $pengaduan = Pengaduan::where('Kode', $kode)->first();
         return view('masyarakat.edit_pengaduan')->with('pengaduan', $pengaduan);
     }
-    public function updatePengaduan(Request $request, $kode){
+    public function update(Request $request, $kode){
         $user = Pengaduan::find($kode);
         $user->isi = $request->isi;
         $user->judul = $request->judul;
