@@ -32,7 +32,7 @@ class HomeController extends Controller
         // $email = auth()->user()->name;
         // dd($email);
         
-        return view('admin.index');
+        return view('admin.home');
         
         
         
