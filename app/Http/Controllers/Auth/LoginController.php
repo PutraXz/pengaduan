@@ -34,23 +34,23 @@ class LoginController extends Controller
      *
      * @return void
      */
+    protected $redirecTo =RouteServiceProvider::HOME;
     public function __construct(Request $request)
     {
          
-        
         $this->middleware('guest')->except('logout');
     }
-    public function logout(Request $request)
-    {
-        $this->guard()->logout();
+    // public function logout(Request $request)
+    // {
+    //     $this->guard()->logout();
  
-        $request->session()->flush();
+    //     $request->session()->flush();
  
-        $request->session()->regenerate();
+    //     $request->session()->regenerate();
  
-        return redirect('home');
+    //     return redirect('home');
             
-    }
+    // }
     // public function login(Request $request){
     //     $input = $request->all();
     //     $this->validate($request,[
