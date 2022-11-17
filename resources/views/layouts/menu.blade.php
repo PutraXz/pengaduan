@@ -22,6 +22,9 @@
     <a class="c-sidebar-nav-link c-active" href="{{ route('pimpinan.home') }}">
         <i class="c-sidebar-nav-icon cil-home"></i>Pimpinan
     </a>
+    <a class="c-sidebar-nav-link c-active" href="{{ route('pimpinan.pengaduan') }}">
+        <i class="c-sidebar-nav-icon far fa-sticky-note"></i>Pengaduan
+    </a>
     @endif
 
 </li>

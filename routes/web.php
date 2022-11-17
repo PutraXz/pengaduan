@@ -52,6 +52,6 @@ Route::middleware(['auth', 'check-level:masyarakat'])->group(function(){
 // Pimpinan Role
 Route::middleware(['auth', 'check-level:pimpinan'])->group(function(){
     Route::get('/pimpinan/home', [App\Http\Controllers\HomeController::class, 'pimpinanHome'])->name('pimpinan.home');
-    Route::get('/pimpinan/pengaduan', [App\Http\Controllers\HomeController::class, 'pengaduan'])->name('pimpinan.home');
+    Route::get('/pimpinan/pengaduan', [App\Http\Controllers\Pimpinan\PengaduanController::class, 'index'])->name('pimpinan.pengaduan');
 });
 

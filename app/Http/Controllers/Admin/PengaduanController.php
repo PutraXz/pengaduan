@@ -17,14 +17,7 @@ class PengaduanController extends Controller
 {
     public function index(){
         $users = User::with(['pengaduan'])->whereNotIn('level', ['admin', 'pimpinan'])->get();
-        $pengaduan = [];
-        $test = [];
-        foreach ($users as $item) {
-            foreach ($item->pengaduan as $pengaduan) {
-                $test = Bukti::where('kode_pengaduan', $pengaduan->kode)->get();
-            }
-        }
-        return view('admin.pengaduan', compact('users','pengaduan','test'));
+        return view('admin.pengaduan', compact('users'));
     }
     public function create(){
         $users = User::whereNotIn('level', ['admin', 'pimpinan'])->get();
