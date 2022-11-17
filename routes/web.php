@@ -47,6 +47,10 @@ Route::group(['middleware' => 'auth'], function (){
         Route::delete('/home/pengaduan/{kode}', [App\Http\Controllers\Masyarakat\PengaduanController::class, 'destroy'])->name('hapus.pengaduan');
     
     });
+    Route::group(['middleware' => 'check-level:pimpinan'], function (){
+        Route::get('/pimpinan', [App\Http\Controllers\HomeController::class, 'pimpinanHome'])->name('pimpinan.home');
+        Route::get('/pimpinan/pengaduan', [App\Http\Controllers\Pimpinan\PengaduanController::class, 'index'])->name('pimpinan.pengaduan');
+    });
 });
 
 

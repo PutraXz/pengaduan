@@ -1,4 +1,4 @@
-<li class="c-sidebar-nav-item">
+<li class="c-sidebar-nav-item"> 
     @if (auth()->user()->level=="admin")
     <a class="c-sidebar-nav-link c-active" href="{{ route('admin.index') }}">
         <i class="c-sidebar-nav-icon cil-home"></i>Admin
