@@ -19,9 +19,6 @@ class CheckLevel
     {   
         if(Auth::check() && Auth::user()->level == $level){
             return $next($request);
-            if(Auth::user()->level=="admin"){
-                return redirect('/admin/home');
-            }
         }
         return redirect('/');
     }

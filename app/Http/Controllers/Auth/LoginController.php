@@ -35,6 +35,7 @@ class LoginController extends Controller
      * @return void
      */
     protected $redirecTo =RouteServiceProvider::HOME;
+
     public function __construct(Request $request)
     {
          
@@ -51,22 +52,22 @@ class LoginController extends Controller
     //     return redirect('home');
             
     // }
-    // public function login(Request $request){
-    //     $input = $request->all();
-    //     $this->validate($request,[
-    //         'email'=>'required|email',
-    //         'paswword'=>'required'
-    //     ]);
-    //     if(auth()->attempt(['email'=>$input['email'], 'password'=>$input['password']])){
-    //         if(auth()->user()->level == 'admin'){
-    //             return redirect('/admin/home');
-    //         }elseif(auth()->user()->level == 'pimpinan'){
-    //             return redirect('/pimpinan/home');
-    //         }else{
-    //             return redirect('/home');
-    //         }
-    //     }else{
-    //         return redirect()->route("login")->with("error", 'incorrect email or password');
-    //     }
-    // }
+    public function login(Request $request){
+        $input = $request->all();
+        $this->validate($request,[
+            'email'=>'required|email',
+            'password'=>'required'
+        ]);
+        if(auth()->attempt(['email'=>$input['email'], 'password'=>$input['password']])){
+            if(auth()->user()->level == 'admin'){
+                return redirect('/admin');
+            }elseif(auth()->user()->level == 'pimpinan'){
+                return redirect('/pimpinan/home');
+            }else{
+                return redirect('/home');
+            }
+        }else{
+            return redirect()->route("login")->with("error", 'incorrect email or password');
+        }
+    }
 }
